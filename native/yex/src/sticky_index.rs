@@ -1,6 +1,9 @@
 use rustler::{Atom, Decoder, Encoder, Env, NifResult, NifStruct, NifUnitEnum, ResourceArc, Term};
 use serde::{Deserialize as _, Serialize as _};
-use yrs::{Assoc, IndexedSequence, StickyIndex};
+use yrs::{
+    updates::{decoder::Decode, encoder::Encode},
+    Assoc, IndexedSequence, StickyIndex,
+};
 
 use crate::{
     atoms, doc::NifDoc, shared_type::NifSharedType, transaction::TransactionResource,
@@ -148,5 +151,30 @@ fn sticky_index_get_offset(
             )),
             None => Err(rustler::Error::Atom("error")),
         }
+    })
+}
+
+#[rustler::nif]
+fn sticky_index_encode_v1<'a>(
+    env: Env<'a>,
+    sticky_index: NifStickyIndex,
+    _current_transaction: Option<ResourceArc<TransactionResource>>,
+) -> NifResult<Term<'a>> {
+    // Encode using lib0 v1 format (same, as used by Yjs RelativePosition v1)
+    let buf = sticky_index.reference.0.encode_v1();
+    Ok(SliceIntoBinary::new(buf.as_slice()).encode(env))
+}
+
+#[rustler::nif]
+fn sticky_index_decode_v1(
+    doc: NifDoc,
+    _current_transaction: Option<ResourceArc<TransactionResource>>,
+    data: rustler::Binary,
+) -> NifResult<NifStickyIndex> {
+    let si = StickyIndex::decode_v1(data.as_slice()).map_err(|_| rustler::Error::BadArg)?;
+    Ok(NifStickyIndex {
+        doc,
+        reference: StickyIndexRef::new(si.clone()),
+        assoc: si.assoc.into(),
     })
 }

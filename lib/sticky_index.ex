@@ -71,6 +71,20 @@ defmodule Yex.StickyIndex do
     )
   end
 
+  @spec encode_v1(t()) :: binary()
+  def encode_v1(%__MODULE__{doc: doc} = sticky_index) do
+    Doc.run_in_worker_process(doc,
+      do: Yex.Nif.sticky_index_encode_v1(sticky_index, cur_txn(sticky_index))
+    )
+  end
+
+  @spec decode_v1(Yex.Doc.t(), binary()) :: t()
+  def decode_v1(%Yex.Doc{} = doc, bin) when is_binary(bin) do
+    Doc.run_in_worker_process(doc,
+      do: Yex.Nif.sticky_index_decode_v1(doc, cur_txn(%{doc: doc}), bin)
+    )
+  end
+
   defp cur_txn(%{doc: %Yex.Doc{reference: doc_ref}}) do
     Process.get(doc_ref, nil)
   end
