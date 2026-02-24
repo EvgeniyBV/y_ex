@@ -9,7 +9,6 @@
 
 [Yjs](https://yjs.dev/) port for Elixir using [y-crdt](https://github.com/y-crdt/y-crdt)
 
-
 A demo using the phoenix framework can be found [here](https://github.com/satoren/y-phoenix-channel).
 
 ## Installation
@@ -22,31 +21,32 @@ def deps do
 end
 ```
 
-
 ## Feature parity
 
+|                                         |                  yjs <br/>(13.6)                  |               yrs<br/>(0.18)               |                 y_ex<br/>(0.10.2)                 |
+| --------------------------------------- | :-----------------------------------------------: | :----------------------------------------: | :-----------------------------------------------: |
+| YText: insert/delete                    |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| YText: formatting attributes and deltas |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| YText: embeded elements                 |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| YMap: update/delete                     |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| YMap: weak links                        | &#x2705; <br/> <small>(weak-links branch)</small> |                  &#x2705;                  |    &#x2705;<br/> <small>(experimental)</small>    |
+| YArray: insert/delete                   |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| YArray & YText quotations               | &#x2705; <br/> <small>(weak links branch)</small> |                  &#x2705;                  |    &#x2705;<br/> <small>(experimental)</small>    |
+| YArray: move                            |    &#x2705; <br/> <small>(move branch)</small>    |                  &#x2705;                  |                     &#x2705;                      |
+| XML Element, Fragment and Text          |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Sub-documents                           |                     &#x2705;                      |                  &#x2705;                  |    &#x2705;<br/> <small>(experimental)</small>    |
+| Shared collections: observers           |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Shared collections: recursive nesting   |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Document observers                      |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Transaction: origins                    |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Snapshots                               |                     &#x2705;                      |                  &#x2705;                  |                     &#x274C;                      |
+| Sticky indexes                          |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Undo Manager                            |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Awareness                               |                     &#x2705;                      |                  &#x2705;                  |                     &#x2705;                      |
+| Network provider: WebSockets            |    &#x2705; <br/> <small>(y-websocket)</small>    |  &#x2705; <br/> <small>(yrs-warp)</small>  | &#x2705; <br/> <small>(y-phoenix-channel)</small> |
+| Network provider: WebRTC                |     &#x2705; <br/> <small>(y-webrtc)</small>      | &#x2705; <br/> <small>(yrs-webrtc)</small> |                     &#x274C;                      |
 
-|                                         |                  yjs <br/>(13.6)                  |               yrs<br/>(0.18)               |                y_ex<br/>(0.10.2)               | 
-|-----------------------------------------|:-------------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
-| YText: insert/delete                    |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| YText: formatting attributes and deltas |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| YText: embeded elements                 |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| YMap: update/delete                     |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| YMap: weak links                        | &#x2705; <br/> <small>(weak-links branch)</small> |                  &#x2705;                  | &#x2705;<br/> <small>(experimental)</small>|
-| YArray: insert/delete                   |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| YArray & YText quotations               | &#x2705; <br/> <small>(weak links branch)</small> |                  &#x2705;                  | &#x2705;<br/> <small>(experimental)</small>|
-| YArray: move                            |    &#x2705; <br/> <small>(move branch)</small>    |                  &#x2705;                  |                  &#x2705;                  |
-| XML Element, Fragment and Text          |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Sub-documents                           |                     &#x2705;                      |                  &#x2705;                  | &#x2705;<br/> <small>(experimental)</small>|
-| Shared collections: observers           |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Shared collections: recursive nesting   |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Document observers                      |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Transaction: origins                    |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Snapshots                               |                     &#x2705;                      |                  &#x2705;                  |                  &#x274C;                  |
-| Sticky indexes                          |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Undo Manager                            |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Awareness                               |                     &#x2705;                      |                  &#x2705;                  |                  &#x2705;                  |
-| Network provider: WebSockets            |    &#x2705; <br/> <small>(y-websocket)</small>    |  &#x2705; <br/> <small>(yrs-warp)</small>  |                  &#x2705; <br/> <small>(y-phoenix-channel)</small>                   |
-| Network provider: WebRTC                |     &#x2705; <br/> <small>(y-webrtc)</small>      | &#x2705; <br/> <small>(yrs-webrtc)</small> |                  &#x274C;                  |
+<!-- publish -->
 
-
+git tag v0.10.5
+git push origin v0.10.5

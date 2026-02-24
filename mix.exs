@@ -1,8 +1,8 @@
 defmodule Yex.MixProject do
   use Mix.Project
 
-  @version "0.10.5"
-  @repo "https://github.com/satoren/y_ex"
+  @version "0.10.6"
+  @repo "https://github.com/EvgeniyBV/y_ex"
 
   @description """
   Elixir wrapper for Yjs
@@ -40,8 +40,8 @@ defmodule Yex.MixProject do
 
   defp package do
     [
-      name: "y_ex",
-      maintainers: ["mshiraki"],
+      name: "y_ex_ebv",
+      maintainers: ["ebv"],
       licenses: ["MIT"],
       links: %{"Github" => @repo},
       files: [
